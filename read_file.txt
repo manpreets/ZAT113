@@ -1,0 +1,4 @@
+Yesterday I bought a [Make] [Model].
+It’s not “too” old. It was made in [year] …
+I like it, though. It’s [colour], and it has [doors] doors!
+Now you have written in the file
