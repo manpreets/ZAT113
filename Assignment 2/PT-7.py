@@ -1,10 +1,11 @@
 # Manpreet Singh | Student id - 632027 | Programming Task 7
 from datetime import datetime
-
+from Birthdays import giftList
 
 # Pass level.
 
 def run_pass_level():
+    print('Pass level')
     today = datetime.now()
     print(today.strftime('%d %B %Y'))
 
@@ -12,7 +13,29 @@ def run_pass_level():
 # Credit level
 def run_credit_level():
     print('Credit level')
+    dob_input = input('        Enter the date of birth of the user in dd/mm/yyyy format : ')
+    dob_datetime = datetime.strptime(dob_input, '%d/%m/%Y')
+    dob_formatted = dob_datetime.strftime('%d %B')
+    print('Your birthday is on ' + dob_formatted)
 
+    user_input = 0
+    while True:
+        try:
+            user_input = int(input('Enter a digit between 0 and 3'))
+            if 0 <= user_input <= 3:
+                break
+            else:
+                show_wrong_input_message()
+        except:
+            show_wrong_input_message()
+            continue
+
+    print(giftList[user_input])
+
+
+
+def show_wrong_input_message():
+    print("You have not entered an integer between 0 and 3, try again")
 
 # Credit level
 def run_distinction_level():
