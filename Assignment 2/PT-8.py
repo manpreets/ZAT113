@@ -6,23 +6,32 @@ import Birthdays
 # Pass level.
 def count_characters():
     string_input = input('Enter a string \n')
-    print('Number of characters : ' + string_input.count())
+    print('Number of characters : ' + str(len(string_input)))
+
 
 def compare_strings():
     string_1 = input('Enter string 1 \n')
     string_2 = input('Enter string 2 \n')
-    print('Are both string same : ' + string_1 == string_2)
+    print('Are both string same : ' + str(string_1 == string_2))
 
+
+def get_user_selection(options):
+    for option in options:
+        print(option)
+
+    return input('Enter your selection from above : ')
 
 
 def run_pass_level():
-    print('######-------Welcome to pass level----------######')
     while True:
-        user_selection_pass_level = input('Please press 0, 1 or 2 to select an option from below : '
-                               + '\n If you want to exit the program, enter 0'
-                               + '\n If you want to count the characters in a string, enter 1'
-                               + '\n If you want to compare two strings, enter 2\n'
-                               )
+        print('\n\n######-------Welcome to pass level----------######')
+
+        options_list_pass = ['If you want to exit the program, enter 0',
+                             'If you want to count the characters in a string, enter 1',
+                             'If you want to compare two strings, enter 2']
+
+        user_selection_pass_level = get_user_selection(options_list_pass)
+
         if user_selection_pass_level == '0':
             break
         elif user_selection_pass_level == '1':
@@ -34,53 +43,73 @@ def run_pass_level():
             continue
 
 
-
-def get_dob_from_user():
-    dob_input = input('        Enter the date of birth of the user in dd/mm/yyyy format : ')
-    return datetime.strptime(dob_input, '%d/%m/%Y')
-
-
 # Credit level
-def run_credit_level():
-    print('######-------Credit level------------######')
-    dob_datetime = get_dob_from_user()
-    dob_formatted = dob_datetime.strftime('%d %B')
-    print('Your birthday is on ' + dob_formatted)
+def convert_sting_uppercase():
+    string_to_be_upper = input('Enter the string to be converted to upper : ')
+    print(string_to_be_upper.upper())
 
-    user_input = 0
+
+def convert_sting_lowercase():
+    string_to_be_lower = input('Enter the string to be converted to upper : ')
+    print(string_to_be_lower.lower())
+
+
+def run_credit_level():
     while True:
-        try:
-            user_input = int(input('Enter a digit between 0 and 3'))
-            if 0 <= user_input <= 3:
-                break
-            else:
-                show_wrong_input_message()
-        except:
-            show_wrong_input_message()
+        print('######-------Welcome to Credit level------------######')
+        options_list_credit = ['If you want to exit the program, enter 0',
+                               'If you want to count the characters in a string, enter 1',
+                               'If you want to compare two strings, enter 2',
+                               'If you want to change the string to uppercase, enter 3',
+                               'If you want to change the string to lowercase, enter 4']
+
+        user_selection_credit_level = get_user_selection(options_list_credit)
+
+        if user_selection_credit_level == '0':
+            break
+        elif user_selection_credit_level == '1':
+            count_characters()
+        elif user_selection_credit_level == '2':
+            compare_strings()
+        elif user_selection_credit_level == '3':
+            convert_sting_uppercase()
+        elif user_selection_credit_level == '4':
+            convert_sting_lowercase()
+        else:
+            print('Wrong input!')
             continue
 
-    print(Birthdays.giftList[user_input])
 
-
-def show_wrong_input_message():
-    print("You have not entered an integer between 0 and 3, try again")
-
-
-# Credit level
+# Distinction level
 def run_distinction_level():
-    print('######-------Distinction level-----------#######')
-    Birthdays.get_birthdays()
+    while True:
+        print('######-------Welcome to Distinction level------------######')
+        options_list_credit = ['If you want to exit the program, enter 0',
+                               'If you want to count the characters in a string, enter 1',
+                               'If you want to compare two strings, enter 2',
+                               'If you want to change the string to uppercase, enter 3',
+                               'If you want to change the string to lowercase, enter 4']
+
+        user_selection_credit_level = get_user_selection(options_list_credit)
+
+        if user_selection_credit_level == '0':
+            break
+        elif user_selection_credit_level == '1':
+            count_characters()
+        elif user_selection_credit_level == '2':
+            compare_strings()
+        elif user_selection_credit_level == '3':
+            convert_sting_uppercase()
+        elif user_selection_credit_level == '4':
+            convert_sting_lowercase()
+        else:
+            print('Wrong input!')
+            continue
 
 
 # Credit level
 def run_hd_level():
-    print('######-------HD level----------#####')
-    print(Birthdays.famousBirthdays['July'])
-
-    user_dob = get_dob_from_user()
-    user_dob_month = user_dob.strftime('%B')
-
-    print(Birthdays.famousBirthdays[user_dob_month] + ' was also born in ' + user_dob_month)
+    print('######-------Welcome to HD level----------#####')
 
 
 def main():
