@@ -42,13 +42,13 @@ def show_wrong_input_message():
     print("You have not entered an integer between 0 and 3, try again")
 
 
-# Credit level
+# Distinction level main function
 def run_distinction_level():
     print('######-------Distinction level-----------#######')
     Birthdays.get_birthdays()
 
 
-# Credit level
+# HD level main function
 def run_hd_level():
     print('######-------HD level----------#####')
     print(Birthdays.famousBirthdays['July'])
