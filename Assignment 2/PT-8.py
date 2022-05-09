@@ -185,7 +185,7 @@ def run_hd_level():
 def main():
     while True:
         print('\n\n')
-        print('##########-----------Programming Task 7 - Main menu-------------##########')
+        print('##########-----------Programming Task 8 - Main menu-------------##########')
         user_selection = input('Please press 0, 1 or 2 to select an option from below : '
                                + '\n 0 - Exit the program '
                                + '\n 1 - Test Pass level'

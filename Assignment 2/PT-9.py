@@ -5,7 +5,7 @@ print('#############-----------Manpreet Singh | Student id - 632027 | Programmin
 
 # Distinction level callback function for Submit button
 def print_greeting():
-    print('Hi there,' + text_full_name.get())
+    print('Hi there, ' + text_full_name.get())
 
 
 # HD level callback function to check and compare emails
