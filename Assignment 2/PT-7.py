@@ -8,7 +8,7 @@ import Birthdays
 def run_pass_level():
     print('######-------Pass level----------######')
     today = datetime.now()
-    print(today.strftime('%d %B %Y'))
+    print('Today\'s date : ' + today.strftime('%d %B %Y'))
 
 
 def get_dob_from_user():
@@ -51,6 +51,7 @@ def run_distinction_level():
 # HD level main function
 def run_hd_level():
     print('######-------HD level----------#####')
+    # Add code to find the value of the 'July' key in the famousBirthdays dictionary and print the value to screen.
     print(Birthdays.famousBirthdays['July'])
 
     user_dob = get_dob_from_user()

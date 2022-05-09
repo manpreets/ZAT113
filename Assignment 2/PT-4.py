@@ -1,5 +1,8 @@
 # Manpreet Singh | Student id - 632027 | Programming Task 4
 
+# Pass level
+print('######-------Pass level--------#######')
+
 # A comment with your name and student number
 name_student_no = 'Manpreet Singh | 632027'
 
@@ -22,6 +25,9 @@ first_two_letters = name_title_case[0:2]
 print('First two letters are : \'' + first_two_letters + '\'')
 print('---------------------------------------------------------------------\n')
 
+# Credit level
+print('######-------Credit level--------#######')
+
 # Create and print (with key and value) a dictionary called Car with the following information:
 # Make = Mitsubishi
 # Model = Lancer
@@ -43,6 +49,9 @@ Car['Colour'] = 'blue'
 print(Car)
 print('---------------------------------------------------------------------\n')
 
+# Distinction level
+print('######-------Distinction level--------#######')
+
 # Make a copy of the Car dictionary described above.
 New_Car = Car.copy()
 
@@ -52,6 +61,9 @@ New_Car['Doors'] = 4
 # Print the new Car and the old Car.
 print(New_Car)
 print('---------------------------------------------------------------------\n')
+
+# HD level
+print('######-------HD level--------#######')
 
 # Create a string and use a method to generate a description of the new car as shown below.
 # Print it – it should be formatted like the text below (including the line breaks).

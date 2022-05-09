@@ -2,6 +2,9 @@
 from datetime import datetime as d
 from pathlib import Path
 
+# Pass level
+print('######-------Pass level--------#######')
+
 
 # A class which creates a generic staff member. Staff members have a date of birth ‘dd/mm/yyyy’, first name,
 # last name, and department
@@ -57,6 +60,8 @@ def run_pass_level():
 # A class which creates a generic staff member, allowing for initialisation on entry, but otherwise the same as
 # the pass-level requirements above
 # --------Created above
+print('######-------Credit level--------#######')
+
 
 # A prompt that allows the user to enter a staff member’s details to create a new staff object
 def create_staff_from_user_input():
@@ -169,7 +174,7 @@ def run_hd_level():
         print('\n\n')
         print('###########---------------Test HD Level - Main menu-------------########')
         user_selection = input('    Please press 0, 1 or 2 to select an option from below : '
-                               + '\n    0 - Exit the program '
+                               + '\n    0 - Exit the HD level to Main Menu '
                                + '\n    1 - Create staff member '
                                + '\n    2 - Create teaching staff member '
                                + '\n    3 - Print the file '

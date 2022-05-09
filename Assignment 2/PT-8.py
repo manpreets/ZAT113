@@ -11,7 +11,7 @@ def count_characters():
 def compare_strings():
     string_1 = input('Enter string 1 \n')
     string_2 = input('Enter string 2 \n')
-    print('Are both string same : ' + str(string_1 == string_2))
+    print('Are both string same? : ' + str(string_1 == string_2))
 
 
 # A generic function to loop through a list of strings and ask for a user input
@@ -27,7 +27,7 @@ def run_pass_level():
     while True:
         print('\n\n######-------Welcome to pass level----------######\n')
 
-        options_list_pass = ['If you want to exit the program, enter 0',
+        options_list_pass = ['If you want to exit pass level to main menu, enter 0',
                              'If you want to count the characters in a string, enter 1',
                              'If you want to compare two strings, enter 2']
         # Gets user input for selection
@@ -53,7 +53,7 @@ def convert_sting_uppercase():
 
 # Converts a string to lowercase
 def convert_sting_lowercase():
-    string_to_be_lower = input('Enter the string to be converted to upper : ')
+    string_to_be_lower = input('Enter the string to be converted to lower : ')
     print(string_to_be_lower.lower())
 
 
@@ -61,7 +61,7 @@ def convert_sting_lowercase():
 def run_credit_level():
     while True:
         print('\n\n######-------Welcome to Credit level------------######\n')
-        options_list_credit = ['If you want to exit the program, enter 0',
+        options_list_credit = ['If you want to exit the credit level to main menu, enter 0',
                                'If you want to count the characters in a string, enter 1',
                                'If you want to compare two strings, enter 2',
                                'If you want to change the string to uppercase, enter 3',
@@ -91,7 +91,7 @@ def compare_string_includes_other():
     string_2 = input('Enter string 2 : ')
 
     # Find positions of a string in other, returns -1 if not found
-    print('Does string 1 contains string 2 : ' + str(string_1.find(string_2) != -1))
+    print('Does string 1 contains string 2? : ' + str(string_1.find(string_2) != -1))
 
 
 # Concatenates two strings
@@ -107,7 +107,7 @@ def join_stings():
 def run_distinction_level():
     while True:
         print('\n\n######-------Welcome to Distinction level------------######\n')
-        options_list_distinction = ['If you want to exit the program, enter 0',
+        options_list_distinction = ['If you want to exit the distinction level to main menu, enter 0',
                                     'If you want to count the characters in a string, enter 1',
                                     'If you want to compare two strings, enter 2',
                                     'If you want to change the string to uppercase, enter 3',
@@ -149,7 +149,7 @@ def count_a_character_in_string():
 def run_hd_level():
     while True:
         print('\n\n######-------Welcome to HD level------------######\n')
-        options_list_hd = ['If you want to exit the program, enter 0',
+        options_list_hd = ['If you want to exit the HD level to main menu, enter 0',
                            'If you want to count the characters in a string, enter 1',
                            'If you want to compare two strings, enter 2',
                            'If you want to change the string to uppercase, enter 3',

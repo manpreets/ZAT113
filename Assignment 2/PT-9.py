@@ -7,7 +7,7 @@ def print_greeting():
     print('Hi there,' + text_full_name.get())
 
 
-# HD level callback function to compare emails
+# HD level callback function to check and compare emails
 def email_check():
     if text_email.get() == '':
         print('Please enter your email address into the first field')
