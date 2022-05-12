@@ -19,7 +19,13 @@ class Toolbar(tk.Frame):
 class Statusbar(tk.Frame):
     def __init__(self, parent, *args, **kwargs):
         tk.Frame.__init__(self, parent, *args, **kwargs)
+        self.status_label = None
         self.parent = parent
+
+    def set_status(self, label_text):
+        self.status_label = None
+        self.status_label = tk.Label(text=label_text)
+        self.status_label.pack()
 
 
 class Main(tk.Frame):
@@ -34,18 +40,21 @@ class ITTMS(tk.Frame):
 
         self.parent = parent
 
-        self.statusbar = Statusbar(self)
         self.toolbar = Toolbar(self)
         self.navbar = Navbar(self)
         self.main = Main(self)
+        self.statusbar = Statusbar(self)
 
-        self.statusbar.pack(side="bottom", fill="x")
+        self.statusbar.set_status("I am the status label")
+
         self.toolbar.pack(side="top", fill="x")
         self.navbar.pack(side="left", fill="y")
         self.main.pack(side="right", fill="both", expand=True)
+        self.statusbar.pack(side="bottom", fill="x")
 
 
 if __name__ == "__main__":
     root = tk.Tk()
+    # root.geometry('800x600')
     ITTMS(root).pack(side="top", fill="both", expand=True)
     root.mainloop()
