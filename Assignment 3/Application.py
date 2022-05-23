@@ -1,4 +1,5 @@
 import tkinter as tk
+import TicketManagement
 
 
 # https://stackoverflow.com/questions/17466561/best-way-to-structure-a-tkinter-application
@@ -34,7 +35,7 @@ class Main(tk.Frame):
         self.parent = parent
 
 
-class ITTMS(tk.Frame):
+class Application(tk.Frame):
     def __init__(self, parent):
         tk.Frame.__init__(self, parent)
 
@@ -45,13 +46,13 @@ class ITTMS(tk.Frame):
         main_title.pack(side="top", fill="x", pady=24)
 
         # Set up the menu bar.
-        self.menubar = Menubar(self, borderwidth=2)
+        self.menubar = Menubar(self, highlightbackground="black", highlightthickness=1)
 
         # Set up the main frame.
         self.main = Main(self, borderwidth=2)
 
         # Set up the status bar
-        self.statusbar = Statusbar(self, borderwidth=2)
+        self.statusbar = Statusbar(self, borderwidth=2, highlightthickness=1, highlightbackground="black")
 
         self.statusbar.set_status("I am the status label")
 
@@ -66,5 +67,5 @@ class ITTMS(tk.Frame):
 if __name__ == "__main__":
     root = tk.Tk()
     root.geometry('800x600')
-    ITTMS(root).pack(side="top", fill="both", expand=True)
+    Application(root).pack(side="top", fill="both", expand=True)
     root.mainloop()
