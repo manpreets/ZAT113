@@ -1,4 +1,19 @@
 import datalayer as dl
+from enum import Enum
+
+
+class Priority(Enum):
+    HIGH = 1
+    MEDIUM = 2
+    LOW = 3
+
+
+class Status(Enum):
+    NEW = 1
+    OPEN = 2
+    READY_FOR_REVIEW = 3
+    UNDER_REVIEW = 4
+    RESOLVED = 5
 
 
 class Ticket:
