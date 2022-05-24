@@ -1,5 +1,4 @@
 import tkinter as tk
-import TicketManagement
 
 
 # https://stackoverflow.com/questions/17466561/best-way-to-structure-a-tkinter-application
@@ -64,8 +63,52 @@ class Application(tk.Frame):
         self.statusbar.pack(side="bottom", fill="x")
 
 
-if __name__ == "__main__":
+def start_gui():
     root = tk.Tk()
     root.geometry('800x600')
     Application(root).pack(side="top", fill="both", expand=True)
     root.mainloop()
+
+
+def start_command_line():
+    while True:
+        print('\n\n')
+        print('##########-----------ITTMS Command Line-------------##########')
+        user_selection = input('Please press 0, 1 or 2 to select an option from below : '
+                               + '\n 0 - Exit the program '
+                               + '\n 1 - Setup database'
+                               + '\n 2 - List tickets'
+                               + '\n 3 - Add ticket '
+                               + '\n 4 - Delete ticket '
+                               )
+
+        if user_selection == '0':
+            break
+        elif user_selection == '1':
+            start_gui()
+        elif user_selection == '2':
+            start_command_line()
+        else:
+            print('Wrong input!')
+            continue
+
+
+if __name__ == "__main__":
+    while True:
+        print('\n\n')
+        print('##########-----------IT Ticket Management-------------##########')
+        user_selection = input('Please press 0, 1 or 2 to select an option from below : '
+                               + '\n 0 - Exit the program '
+                               + '\n 1 - Start GUI'
+                               + '\n 2 - Start command line '
+                               )
+
+        if user_selection == '0':
+            break
+        elif user_selection == '1':
+            start_gui()
+        elif user_selection == '2':
+            start_command_line()
+        else:
+            print('Wrong input!')
+            continue
