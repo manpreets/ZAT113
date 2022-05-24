@@ -16,6 +16,12 @@ class Status(Enum):
     RESOLVED = 5
 
 
+class Users(Enum):
+    Jack = 0
+    Michael = 1
+    Manpreet = 3
+
+
 class Ticket:
     def __init__(self):
         self.ID = 0
@@ -35,14 +41,55 @@ class Ticket:
         self.added_by_user_id = added_by_user_id
         self.status = status
 
+    def get_status(self):
+        return Status(self.status).name
+
+    def get_priority(self):
+        return Priority(self.priority).name
+
+    def add(self):
+        return dl.add_ticket(self)
+
+    def save(self):
+        dl.update_ticket(self)
+
     @staticmethod
     def get_ticket(ticket_id):
-        ticket_from_db = dl.get_ticket()
+        ticket_from_db = dl.get_ticket(ticket_id)
 
+        # todo Null check
         # if ticket exists then return it otherwise return null
+        this_ticket = Ticket(
+            ticket_from_db[0],
+            ticket_from_db[1],
+            ticket_from_db[2],
+            ticket_from_db[3],
+            ticket_from_db[4],
+            ticket_from_db[5],
+            ticket_from_db[6],
+        )
+
+        return this_ticket
 
     @staticmethod
     def get_tickets():
         tickets_from_db = dl.get_tickets()
 
-        # if ticket exists then return it otherwise return null
+        # todo Null check
+        # if ticket exists then return it otherwise return empty list
+
+        tickets = []
+
+        for ticket in tickets_from_db:
+            this_ticket = Ticket(
+                this_ticket[0],
+                this_ticket[1],
+                this_ticket[2],
+                this_ticket[3],
+                this_ticket[4],
+                this_ticket[5],
+                this_ticket[6]
+            )
+
+        return tickets
+
