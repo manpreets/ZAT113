@@ -1,4 +1,5 @@
 import tkinter as tk
+import datalayer as dl
 
 
 # https://stackoverflow.com/questions/17466561/best-way-to-structure-a-tkinter-application
@@ -63,6 +64,33 @@ class Application(tk.Frame):
         self.statusbar.pack(side="bottom", fill="x")
 
 
+
+# List tickets
+def list_tickets():
+    list_of_tickets = []
+
+
+# List ticket using a specific ID
+def list_ticket():
+    ticket = []
+
+
+# Add ticket
+def add_ticket():
+    while
+
+
+# Update ticket
+def update_ticket():
+    ticket = []
+
+
+# Delete ticket
+def delete_ticket():
+    ticket = []
+
+
+
 def start_gui():
     root = tk.Tk()
     root.geometry('800x600')
@@ -74,20 +102,30 @@ def start_command_line():
     while True:
         print('\n\n')
         print('##########-----------ITTMS Command Line-------------##########')
-        user_selection = input('Please press 0, 1 or 2 to select an option from below : '
-                               + '\n 0 - Exit the program '
-                               + '\n 1 - Setup database'
-                               + '\n 2 - List tickets'
-                               + '\n 3 - Add ticket '
-                               + '\n 4 - Delete ticket '
-                               )
+        user_selection_cli = input('Please press 0, 1 or 2 to select an option from below : '
+                                   + '\n 0 - Exit the CLI '
+                                   + '\n 1 - Setup database'
+                                   + '\n 2 - List tickets'
+                                   + '\n 3 - List ticket using ticket id'
+                                   + '\n 4 - Add ticket '
+                                   + '\n 5 - Update ticket '
+                                   + '\n 6 - Delete ticket '
+                                   )
 
-        if user_selection == '0':
+        if user_selection_cli == '0':
             break
-        elif user_selection == '1':
-            start_gui()
-        elif user_selection == '2':
-            start_command_line()
+        elif user_selection_cli == '1':
+            dl.setup_database()
+        elif user_selection_cli == '2':
+            list_tickets()
+        elif user_selection_cli == '3':
+            list_ticket()
+        elif user_selection_cli == '4':
+            add_ticket()
+        elif user_selection_cli == '5':
+            update_ticket()
+        elif user_selection_cli == '6':
+            delete_ticket()
         else:
             print('Wrong input!')
             continue

@@ -1,9 +1,6 @@
 import sqlite3
 from sqlite3 import Error
 
-from TicketManagement import Ticket
-from typing import Type
-
 
 class DataLayer:
     def __init__(self):
@@ -31,7 +28,6 @@ class DataLayer:
 
         self.conn = conn
         self.cursor = self.conn.cursor()
-
 
     def commit(self):
         self.conn.commit()
@@ -84,7 +80,7 @@ def get_ticket(ticket_id):
 
 
 # Update ticket
-def add_ticket(ticket: Type[Ticket]):
+def add_ticket(ticket):
     database.connect()
     database.cursor.execute("""
         INSERT INTO Tickets( 
@@ -96,12 +92,13 @@ def add_ticket(ticket: Type[Ticket]):
         Status
         )
         VALUES(?, ?, ?, ?, ?, ?), 
-        ticket.title,
-        ticket.description,
-        ticket.priority,
-        ticket.assigned_to_user_id,
-        ticket.added_by_staff_id,
-        ticket.status
+        ticket['title'],
+        ticket['description'],
+        ticket['priority'],
+        ticket['assigned_to_user_id'],
+        ticket['added_by_staff_id'],
+        ticket['status'],
+        ticket['ID']
         }
         
     """)
@@ -112,7 +109,7 @@ def add_ticket(ticket: Type[Ticket]):
 
 
 # Update ticket
-def update_ticket(ticket: Type[Ticket]):
+def update_ticket(ticket):
     database.connect()
     database.cursor.execute("""
         UPDATE Tickets SET
@@ -124,13 +121,13 @@ def update_ticket(ticket: Type[Ticket]):
         Status = :status
         WHERE oid = :oid, 
         {
-        'title' : ticket.title,
-        'description' : ticket.description,
-        'priority' : ticket.priority,
-        'assigned_to_user_id' : ticket.assigned_to_user_id,
-        'added_by_staff_id' : ticket.added_by_staff_id,
-        'status' : ticket.status,
-        'oid' : ticket.ID
+        'title' : ticket['title'],
+        'description' : ticket['description'],
+        'priority' : ticket['priority'],
+        'assigned_to_user_id' : ticket['assigned_to_user_id'],
+        'added_by_staff_id' : ticket['added_by_staff_id'],
+        'status' : ticket['status'],
+        'oid' : ticket['ID']
         }
         
     """)

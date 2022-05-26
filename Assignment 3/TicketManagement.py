@@ -47,6 +47,9 @@ class Ticket:
     def get_priority(self):
         return Priority(self.priority).name
 
+    def get_added_by(self):
+        return Users(self.added_by_user_id).name
+
     def add(self):
         return dl.add_ticket(self)
 
