@@ -63,7 +63,7 @@ def setup_database():
 def get_tickets():
     database.connect()
     database.cursor.execute("""
-        SELECT *, oid FROM Tickets
+        SELECT oid, * FROM Tickets
     """)
     records = database.cursor.fetchall()
     database.commit()

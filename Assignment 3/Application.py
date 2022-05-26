@@ -66,15 +66,23 @@ class Application(tk.Frame):
         self.statusbar.pack(side="bottom", fill="x")
 
 
-
 # List tickets
 def list_tickets():
-    list_of_tickets = []
+    tickets = tm.Ticket.get_tickets()
+
+    for ticket in tickets:
+        print('\n-----ID : ' + str(ticket.ID) + '----')
+        ticket.print_ticket()
+        print('------------\n')
 
 
 # List ticket using a specific ID
 def list_ticket():
-    ticket = []
+    ticket_id = input('Enter the ticket ID : ')
+    ticket = tm.Ticket.get_ticket(ticket_id)
+    print('\n-----ID : ' + str(ticket.ID) + '----')
+    ticket.print_ticket()
+    print('------------\n')
 
 
 # Add ticket
@@ -95,7 +103,6 @@ def add_ticket():
         break
 
 
-
 # Update ticket
 def update_ticket():
     ticket = []
@@ -104,7 +111,6 @@ def update_ticket():
 # Delete ticket
 def delete_ticket():
     ticket = []
-
 
 
 def start_gui():
