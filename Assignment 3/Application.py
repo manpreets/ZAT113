@@ -1,5 +1,7 @@
 import tkinter as tk
 import datalayer as dl
+import TicketManagement as tm
+import Helper as helper
 
 
 # https://stackoverflow.com/questions/17466561/best-way-to-structure-a-tkinter-application
@@ -77,7 +79,21 @@ def list_ticket():
 
 # Add ticket
 def add_ticket():
-    while
+    while True:
+        new_ticket = tm.Ticket()
+        new_ticket.title = input('Enter ticket title : ')
+        new_ticket.description = input('Enter ticket description : ')
+        helper.print_enums(tm.Priority)
+        new_ticket.priority = input('Enter ticket priority number from above : ')
+        helper.print_enums(tm.Users)
+        new_ticket.added_by_user_id = input('Enter ticket added by ID from above : ')
+
+        new_ticket.add()
+
+        print('New ticket has been added with ID ' + str(new_ticket.ID))
+
+        break
+
 
 
 # Update ticket

@@ -1,11 +1,7 @@
 # Class vehicle.
 
 class Vehicle:
-    def __init__(self):
-        self.make = ''
-        self.year = 0
-
-    def __init__(self, make, year):
+    def __init__(self, make='', year=0):
         self.make = make
         self.year = year
 
@@ -14,10 +10,7 @@ class Vehicle:
 
 
 class Car(Vehicle):
-    def __init__(self):
-        super().__init__(self)
-
-    def __init__(self, make, year, model):
+    def __init__(self, make='', year=0, model=''):
         super().__init__(make, year)
         self.model = model
 
@@ -25,5 +18,4 @@ class Car(Vehicle):
         print('This car "' + self.make + '" model - "' + self.model + '" was made in ' + str(self.year))
 
 
-car_obj = Vehicle('Ford', 2000)
-car_obj.print_me()
+car_obj = Vehicle()

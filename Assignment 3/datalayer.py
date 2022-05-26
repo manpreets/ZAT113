@@ -50,7 +50,7 @@ def setup_database():
             Description text,
             Priority integer,
             Assigned_To_User_Id integer,
-            Added_By_Staff_Id integer,
+            Added_By_User_Id integer,
             Status integer 
         )
     """)
@@ -81,6 +81,8 @@ def get_ticket(ticket_id):
 
 # Update ticket
 def add_ticket(ticket):
+    print(ticket)
+    input('In datalayer add ticket')
     database.connect()
     database.cursor.execute("""
         INSERT INTO Tickets( 
@@ -88,20 +90,18 @@ def add_ticket(ticket):
         Description,
         Priority,
         Assigned_To_User_Id,
-        Added_By_Staff_Id,
+        Added_By_User_Id,
         Status
         )
-        VALUES(?, ?, ?, ?, ?, ?), 
+        VALUES(?, ?, ?, ?, ?, ?)""", (
         ticket['title'],
         ticket['description'],
         ticket['priority'],
         ticket['assigned_to_user_id'],
-        ticket['added_by_staff_id'],
-        ticket['status'],
-        ticket['ID']
-        }
-        
-    """)
+        ticket['added_by_user_id'],
+        ticket['status']
+        )
+    )
 
     last_row_id = database.cursor.lastrowid
     database.commit()

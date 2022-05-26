@@ -1,5 +1,6 @@
 import datalayer as dl
 from enum import Enum
+import Helper as helper
 
 
 class Priority(Enum):
@@ -17,22 +18,14 @@ class Status(Enum):
 
 
 class Users(Enum):
-    Jack = 0
-    Michael = 1
+    Jack = 1
+    Michael = 2
     Manpreet = 3
 
 
 class Ticket:
-    def __init__(self):
-        self.ID = 0
-        self.title = ''
-        self.description = ''
-        self.priority = 0
-        self.assigned_to_user_id = 0
-        self.added_by_user_id = 0
-        self.status = 0
-
-    def __init__(self, ticket_id, title, description, priority, assigned_to_user_id, added_by_user_id, status):
+    def __init__(self, ticket_id=0, title='', description='', priority=0, assigned_to_user_id=0, added_by_user_id=0,
+                 status=0):
         self.ID = ticket_id
         self.title = title
         self.description = description
@@ -51,10 +44,11 @@ class Ticket:
         return Users(self.added_by_user_id).name
 
     def add(self):
-        return dl.add_ticket(self)
+        new_ticket_id = dl.add_ticket(helper.dict_from_class(self))
+        self.ID = new_ticket_id
 
     def save(self):
-        dl.update_ticket(self)
+        dl.update_ticket(helper.dict_from_class(self))
 
     @staticmethod
     def get_ticket(ticket_id):
@@ -95,4 +89,3 @@ class Ticket:
             )
 
         return tickets
-
