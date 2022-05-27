@@ -125,7 +125,7 @@ def update_ticket(ticket):
         Description = :description,
         Priority = :priority,
         Assigned_To_User_Id = :assigned_to_user_id,
-        Added_By_Staff_Id = :added_by_staff_id,
+        Added_By_User_Id = :added_by_user_id,
         Status = :status
         WHERE oid = :oid""",
                             {
@@ -133,7 +133,7 @@ def update_ticket(ticket):
                                 'description': ticket['description'],
                                 'priority': ticket['priority'],
                                 'assigned_to_user_id': ticket['assigned_to_user_id'],
-                                'added_by_staff_id': ticket['added_by_staff_id'],
+                                'added_by_user_id': ticket['added_by_user_id'],
                                 'status': ticket['status'],
                                 'oid': ticket['ID']
                             }

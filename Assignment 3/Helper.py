@@ -11,7 +11,16 @@ def get_enums_as_friendly_list(the_enum):
 
     return return_string
 
-#https://jfine-python-classes.readthedocs.io/en/latest/dict_from_class.html
+
+def print_dictionary(dictionary_obj):
+
+    print(dictionary_obj)
+
+    for (key, value) in dictionary_obj.items():
+        print(key + ' - ' + str(value))
+
+
+# https://jfine-python-classes.readthedocs.io/en/latest/dict_from_class.html
 def dict_from_class(cls):
     return dict(
         (key, value)

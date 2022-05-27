@@ -119,17 +119,37 @@ def get_friendly_type_name(value_type):
 def update_ticket():
     ticket_id = input('Enter ticket ID to update')
 
-    this_ticket = tm.Ticket.get_ticket(ticket_id)
+    if tm.Ticket.validate_user_input('id', ticket_id):
 
-    this_ticket.print_ticket()
+        this_ticket = tm.Ticket.get_ticket(ticket_id)
 
-    this_ticket_dict = helper.dict_from_class(this_ticket)
+        print("\nCurrent values for ticket ID : " + str(ticket_id) + "\n")
+        this_ticket.print_ticket()
 
-    for (attribute, value) in this_ticket_dict.items():
-        if attribute != 'ID':
-            this_attrib_value = input('Enter new value for ' + get_friendly_attribute_name(attribute)
-            + ' as "' + get_friendly_type_name(str(type(value)))
-            + tm.Ticket.get_enum_options_for_ticket_attribute(attribute) + '" or press ENTER for the next ticket field. ')
+        this_ticket_dict = helper.dict_from_class(this_ticket)
+
+        for (attribute, value) in this_ticket_dict.items():
+            if attribute != 'ID':
+                new_value = input('Enter new value for ' + get_friendly_attribute_name(attribute)
+                + ' as "' + get_friendly_type_name(str(type(value))) + '"'
+                + tm.Ticket.get_enum_options_for_ticket_attribute(attribute) + ' or press ENTER for the next ticket field.\n')
+
+                if tm.Ticket.validate_user_input(attribute, new_value):
+                    this_ticket_dict[attribute] = new_value
+
+        input('Press any key to continue updating...')
+
+        tm.Ticket.save_as_dict(this_ticket_dict)
+
+        new_ticket = tm.Ticket.get_ticket(ticket_id)
+
+        print("\nUpdate values for ticket ID : " + str(ticket_id) + "\n")
+        new_ticket.print_ticket()
+    else:
+        print('\nERROR : Wrong input\n')
+
+
+
 
 
 # Delete ticket
@@ -147,7 +167,7 @@ def start_gui():
 
 def start_command_line():
     while True:
-        print('\n\n')
+        print('\n')
         print('##########-----------ITTMS Command Line-------------##########')
         user_selection_cli = input('Please press 0, 1 or 2 to select an option from below : '
                                    + '\n 0 - Exit the CLI '
@@ -179,22 +199,21 @@ def start_command_line():
 
 
 if __name__ == "__main__":
-    update_ticket()
-    # while True:
-    #     print('\n\n')
-    #     print('##########-----------IT Ticket Management-------------##########')
-    #     user_selection = input('Please press 0, 1 or 2 to select an option from below : '
-    #                            + '\n 0 - Exit the program '
-    #                            + '\n 1 - Start GUI'
-    #                            + '\n 2 - Start command line '
-    #                            )
-    #
-    #     if user_selection == '0':
-    #         break
-    #     elif user_selection == '1':
-    #         start_gui()
-    #     elif user_selection == '2':
-    #         start_command_line()
-    #     else:
-    #         print('Wrong input!')
-    #         continue
+    while True:
+        print('\n')
+        print('##########-----------IT Ticket Management-------------##########')
+        user_selection = input('Please press 0, 1 or 2 to select an option from below : '
+                               + '\n 0 - Exit the program '
+                               + '\n 1 - Start GUI'
+                               + '\n 2 - Start command line '
+                               )
+
+        if user_selection == '0':
+            break
+        elif user_selection == '1':
+            start_gui()
+        elif user_selection == '2':
+            start_command_line()
+        else:
+            print('Wrong input!')
+            continue
