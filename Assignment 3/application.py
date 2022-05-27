@@ -1,7 +1,7 @@
 import tkinter as tk
 import datalayer as dl
-import TicketManagement as tm
-import Helper as helper
+import ticket_management as tm
+import helper as helper
 
 
 # https://stackoverflow.com/questions/17466561/best-way-to-structure-a-tkinter-application
@@ -119,7 +119,7 @@ def get_friendly_type_name(value_type):
 def update_ticket():
     ticket_id = input('Enter ticket ID to update')
 
-    if tm.Ticket.validate_user_input('id', ticket_id):
+    if tm.Ticket.validate_ticket_user_input('id', ticket_id):
 
         this_ticket = tm.Ticket.get_ticket(ticket_id)
 
@@ -134,7 +134,7 @@ def update_ticket():
                 + ' as "' + get_friendly_type_name(str(type(value))) + '"'
                 + tm.Ticket.get_enum_options_for_ticket_attribute(attribute) + ' or press ENTER for the next ticket field.\n')
 
-                if tm.Ticket.validate_user_input(attribute, new_value):
+                if tm.Ticket.validate_ticket_user_input(attribute, new_value):
                     this_ticket_dict[attribute] = new_value
 
         input('Press any key to continue updating...')

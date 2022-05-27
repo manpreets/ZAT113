@@ -1,9 +1,16 @@
+"""
+This class is the business layer of the application. It uses enums for fixed value fields. This function be moved DB
+tables. The enum fields are also type indicated and there are getter methods to get user-friendly version of the value.
+It passes all the database CRUD calls to datalayer and passes on data from datalayer to application layer.
+It uses static methods were operation on self object is not possible.
+"""
 import datalayer as dl
 from enum import Enum
-import Helper as helper
+import helper as helper
 from typing import get_type_hints
 
 
+# Enum to handle priority
 class Priority(Enum):
     NO_PRIORITY = 0
     HIGH = 1
@@ -11,6 +18,7 @@ class Priority(Enum):
     LOW = 3
 
 
+# Status of the ticket
 class Status(Enum):
     NEW = 0
     OPEN = 1
@@ -19,6 +27,8 @@ class Status(Enum):
     RESOLVED = 4
 
 
+# The list of pre-defined users. This should be handled using a DB table for a production solution.
+# todo - Use database for storing user data
 class Users(Enum):
     NO_USER = 0
     Jack = 1
@@ -26,10 +36,12 @@ class Users(Enum):
     Manpreet = 3
 
 
+# Ticket class encapsulates basic attributes and methods of a ticket. DB calls for CRUD are achieved
 class Ticket:
     priority: Priority
     assigned_to_user_id: Users
     added_by_user_id: Users
+    status: Status
 
     def __init__(self,
                  ticket_id=0,
@@ -38,7 +50,7 @@ class Ticket:
                  priority=Priority.NO_PRIORITY,
                  assigned_to_user_id=Users.NO_USER,
                  added_by_user_id=Users.NO_USER,
-                 status=0):
+                 status=Status.NEW):
         self.ID = ticket_id
         self.title = title
         self.description = description
@@ -47,44 +59,54 @@ class Ticket:
         self.added_by_user_id = added_by_user_id
         self.status = status
 
+    # Gets user-friendly version of status
     def get_status(self):
         return Status(self.status).name
 
+    # Gets user-friendly version of priority
     def get_priority(self):
         return Priority(self.priority).name
 
+    # Gets user-friendly version of username for ticket author
     def get_added_by(self):
         return Users(self.added_by_user_id).name
 
+    # Gets user-friendly version of username for ticket assigned to
     def get_assigned_to(self):
         return Users(self.assigned_to_user_id).name
 
+    # Print user-friendly version of the ticket
+    def print_ticket(self):
+        print(
+            'ID : ' + str(self.ID) + '\n'
+            'Title : ' + self.title + '\n'
+            'Description : ' + self.description + '\n'
+            'Priority : ' + self.get_priority() + '\n'
+            'Added by : ' + self.get_added_by() + '\n'
+            'Assigned to : ' + self.get_assigned_to() + '\n'
+            'Status : ' + self.get_status() + '\n'
+        )
+
+    # Sends INSERT call to datalayer
     def add(self):
         new_ticket_id = dl.add_ticket(helper.dict_from_class(self))
         self.ID = new_ticket_id
 
+    # Sends UPDATE call to datalayer
     def save(self):
         dl.update_ticket(helper.dict_from_class(self))
 
-    def print_ticket(self):
-        print(
-            'ID : ' + str(self.ID) + '\n'
-                                     'Title : ' + self.title + '\n'
-                                                               'Description : ' + self.description + '\n'
-                                                                                                     'Priority : ' + self.get_priority() + '\n'
-                                                                                                                                           'Added by : ' + self.get_added_by() + '\n'
-                                                                                                                                                                                 'Assigned to : ' + self.get_assigned_to() + '\n'
-                                                                                                                                                                                                                             'Status : ' + self.get_status() + '\n'
-        )
-
+    # Static version of UPDATE call that uses dictionary to store ticket attirbutes
     @staticmethod
     def save_as_dict(dictionary_obj):
         dl.update_ticket(dictionary_obj)
 
+    # DELETE call to datalayer
     @staticmethod
     def delete(ticket_id):
-        dl.d
+        dl.delete_ticket(ticket_id)
 
+    # Ticket Parser - Takes rows from SELECT operation from DB and parses into list of tickets.
     @staticmethod
     def get_ticket_from_db_reader(ticket_db_reader):
         tickets = []
@@ -104,6 +126,7 @@ class Ticket:
 
         return tickets
 
+    # Gets single 
     @staticmethod
     def get_ticket(ticket_id):
         this_ticket_db = dl.get_ticket(ticket_id)
@@ -141,7 +164,7 @@ class Ticket:
             return ''
 
     @staticmethod
-    def validate_user_input(attribute, value):
+    def validate_ticket_user_input(attribute, value):
         is_valid = False
 
         if attribute == 'title' or attribute == 'description':
