@@ -79,6 +79,13 @@ def get_ticket(ticket_id):
     return record
 
 
+# Select a ticket by id
+def delete_ticket(ticket_id):
+    database.connect()
+    database.cursor.execute("DELETE FROM Tickets WHERE oid =" + ticket_id)
+    database.commit()
+
+
 # Update ticket
 def add_ticket(ticket):
     print(ticket)
@@ -100,8 +107,8 @@ def add_ticket(ticket):
         ticket['assigned_to_user_id'],
         ticket['added_by_user_id'],
         ticket['status']
-        )
     )
+                            )
 
     last_row_id = database.cursor.lastrowid
     database.commit()
@@ -111,6 +118,7 @@ def add_ticket(ticket):
 # Update ticket
 def update_ticket(ticket):
     database.connect()
+
     database.cursor.execute("""
         UPDATE Tickets SET
         Title = :title,
@@ -119,16 +127,17 @@ def update_ticket(ticket):
         Assigned_To_User_Id = :assigned_to_user_id,
         Added_By_Staff_Id = :added_by_staff_id,
         Status = :status
-        WHERE oid = :oid, 
-        {
-        'title' : ticket['title'],
-        'description' : ticket['description'],
-        'priority' : ticket['priority'],
-        'assigned_to_user_id' : ticket['assigned_to_user_id'],
-        'added_by_staff_id' : ticket['added_by_staff_id'],
-        'status' : ticket['status'],
-        'oid' : ticket['ID']
-        }
-        
-    """)
+        WHERE oid = :oid""",
+                            {
+                                'title': ticket['title'],
+                                'description': ticket['description'],
+                                'priority': ticket['priority'],
+                                'assigned_to_user_id': ticket['assigned_to_user_id'],
+                                'added_by_staff_id': ticket['added_by_staff_id'],
+                                'status': ticket['status'],
+                                'oid': ticket['ID']
+                            }
+
+    )
+
     database.commit()

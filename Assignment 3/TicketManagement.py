@@ -1,7 +1,7 @@
 import datalayer as dl
 from enum import Enum
 import Helper as helper
-
+from typing import get_type_hints
 
 class Priority(Enum):
     NO_PRIORITY = 0
@@ -26,7 +26,17 @@ class Users(Enum):
 
 
 class Ticket:
-    def __init__(self, ticket_id=0, title='', description='', priority=0, assigned_to_user_id=0, added_by_user_id=0,
+    priority:Priority
+    assigned_to_user_id:Users
+    added_by_user_id:Users
+
+    def __init__(self,
+                 ticket_id=0,
+                 title='',
+                 description='',
+                 priority=Priority.NO_PRIORITY,
+                 assigned_to_user_id=Users.NO_USER,
+                 added_by_user_id=Users.NO_USER,
                  status=0):
         self.ID = ticket_id
         self.title = title
@@ -62,17 +72,19 @@ class Ticket:
             'Description : ' + self.description + '\n'
             'Priority : ' + self.get_priority() + '\n'
             'Added by : ' + self.get_added_by() + '\n'
-            'Assigned to : ' + self.get_assigned_to() + '\n'  
+            'Assigned to : ' + self.get_assigned_to() + '\n'
             'Status : ' + self.get_status() + '\n'
         )
 
+    @staticmethod
+    def delete(ticket_id):
+        dl.d
 
     @staticmethod
     def get_ticket_from_db_reader(ticket_db_reader):
         tickets = []
 
         for this_ticket_db in ticket_db_reader:
-
             temp_ticket = Ticket(
                 this_ticket_db[0],  # ID
                 this_ticket_db[1],  # Title
@@ -80,7 +92,7 @@ class Ticket:
                 this_ticket_db[3],  # Priority
                 this_ticket_db[4],  # Assigned to
                 this_ticket_db[5],  # Added by
-                this_ticket_db[6]   # Status
+                this_ticket_db[6]  # Status
             )
 
             tickets.append(temp_ticket)
@@ -107,9 +119,19 @@ class Ticket:
 
         tickets = Ticket.get_ticket_from_db_reader(tickets_from_db)
 
-        if len(tickets) == 1:
-            return tickets[0]
+        return tickets
+
+    @staticmethod
+    def get_enum_options_for_ticket_attribute(attribute):
+        type_hints_for_ticket = get_type_hints(Ticket)
+
+        prefix = ' from the following choices \n'
+
+        if attribute in type_hints_for_ticket.keys():
+            print(type_hints_for_ticket[attribute])
+            if str(type_hints_for_ticket[attribute]).find('Priority') > -1:
+                return prefix + helper.get_enums_as_friendly_list(Priority)
+            elif str(type_hints_for_ticket[attribute]).find('Users') > -1:
+                return prefix + helper.get_enums_as_friendly_list(Users)
         else:
-            return None
-
-
+            return ''
