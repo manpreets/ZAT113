@@ -126,7 +126,7 @@ class Ticket:
 
         return tickets
 
-    # Gets single 
+    # Gets single ticket record from datalayer
     @staticmethod
     def get_ticket(ticket_id):
         this_ticket_db = dl.get_ticket(ticket_id)
@@ -138,6 +138,7 @@ class Ticket:
         else:
             return None
 
+    # Gets a list of all tickets
     @staticmethod
     def get_tickets():
         tickets_from_db = dl.get_tickets()
@@ -149,27 +150,44 @@ class Ticket:
 
         return tickets
 
+    # Returns a user-friendly list of enums in a form of key - value pair.
+    # todo - Refactor this method to take take attribute as type and list's its members dynamically
     @staticmethod
     def get_enum_options_for_ticket_attribute(attribute):
+        # Get types of all the attributes in Ticket class
         type_hints_for_ticket = get_type_hints(Ticket)
 
         prefix = ' from the following choices \n'
 
+        # First the attribute should be one of enum or class and not a built-in type
         if attribute in type_hints_for_ticket.keys():
+            # Attribute contains 'Priority' then get a list of its member
             if str(type_hints_for_ticket[attribute]).find('Priority') > -1:
                 return prefix + helper.get_enums_as_friendly_list(Priority)
+            # Attribute contains 'Users' then get a list of its member
             elif str(type_hints_for_ticket[attribute]).find('Users') > -1:
                 return prefix + helper.get_enums_as_friendly_list(Users)
+            # Attribute contains 'Status' then get a list of its member
+            elif str(type_hints_for_ticket[attribute]).find('Status') > -1:
+                return prefix + helper.get_enums_as_friendly_list(Status)
         else:
             return ''
 
+    # Basic validation for str and int
+    # todo - Advanced validation to check if input for enum based values belong to enum members
     @staticmethod
     def validate_ticket_user_input(attribute, value):
         is_valid = False
 
+        # Handles string members and check they are not empty after trimming from both sides
         if attribute == 'title' or attribute == 'description':
-            is_valid = isinstance(value, str) and len(value) > 0
-        elif attribute == 'priority' or attribute == 'id' or attribute == 'added_by_user_id' or attribute == 'assigned_to_user_id' or attribute == 'status':
+            is_valid = isinstance(value, str) and len(value.strip()) > 0
+        # Handles int and enum based members
+        elif attribute == 'priority' \
+                or attribute == 'id' \
+                or attribute == 'added_by_user_id' \
+                or attribute == 'assigned_to_user_id' \
+                or attribute == 'status':
 
             try:
                 converted_value = int(value)

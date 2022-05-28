@@ -1,8 +1,10 @@
+# Prints an enum name and value pairs in a user-friendly way
 def print_enums(the_enum):
     for item in the_enum:
         print(str(item.value) + ' - ' + item.name)
 
 
+# Returns enum name and value as string
 def get_enums_as_friendly_list(the_enum):
     return_string = ''
 
@@ -11,9 +13,8 @@ def get_enums_as_friendly_list(the_enum):
 
     return return_string
 
-
+#
 def print_dictionary(dictionary_obj):
-
     print(dictionary_obj)
 
     for (key, value) in dictionary_obj.items():
