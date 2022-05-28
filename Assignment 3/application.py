@@ -116,6 +116,10 @@ def get_friendly_type_name(value_type):
 
 
 # Update ticket
+# This method firstly takes the input as ticket ID for the ticket to be updated
+# It show the current values for the ticket before asking updated values
+# Then it asks for new value for each attribute of the class. Press ENTER to skip to next field.
+# Each entry is validated for string and int
 def update_ticket():
     ticket_id = input('Enter ticket ID to update')
 
@@ -131,8 +135,9 @@ def update_ticket():
         for (attribute, value) in this_ticket_dict.items():
             if attribute != 'ID':
                 new_value = input('Enter new value for ' + get_friendly_attribute_name(attribute)
-                + ' as "' + get_friendly_type_name(str(type(value))) + '"'
-                + tm.Ticket.get_enum_options_for_ticket_attribute(attribute) + ' or press ENTER for the next ticket field.\n')
+                                  + ' as "' + get_friendly_type_name(str(type(value))) + '"'
+                                  + tm.Ticket.get_enum_options_for_ticket_attribute(
+                    attribute) + ' or press ENTER for the next ticket field.\n')
 
                 if tm.Ticket.validate_ticket_user_input(attribute, new_value):
                     this_ticket_dict[attribute] = new_value
@@ -149,10 +154,7 @@ def update_ticket():
         print('\nERROR : Wrong input\n')
 
 
-
-
-
-# Delete ticket
+# Delete ticket CLI function
 def delete_ticket():
     ticket_id = input('Enter ticket ID to delete : ')
     tm.Ticket.delete(ticket_id)
@@ -165,6 +167,7 @@ def start_gui():
     root.mainloop()
 
 
+# Command line main menu
 def start_command_line():
     while True:
         print('\n')
