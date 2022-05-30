@@ -88,8 +88,6 @@ def delete_ticket(ticket_id):
 
 # Update ticket
 def add_ticket(ticket):
-    print(ticket)
-    input('In datalayer add ticket')
     database.connect()
     database.cursor.execute("""
         INSERT INTO Tickets( 

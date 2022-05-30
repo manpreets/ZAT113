@@ -176,26 +176,40 @@ class Ticket:
         else:
             return ''
 
-    # Basic validation for str and int
-    # todo - Advanced validation to check if input for enum based values belong to enum members
+    # Validation for Enum types and built-in types.
+    # This method looks at the old value compare the type of new type for to check if they are of same type.
+    # It's very helpful for enum types used in classes where it also validates against
     @staticmethod
-    def validate_ticket_user_input(attribute, value,   new_value):
+    def validate_ticket_user_input(old_value, new_value):
         is_valid = False
 
-        # Handles string members and check they are not empty after trimming from both sides
-        if attribute == 'title' or attribute == 'description':
-            is_valid = isinstance(value, str) and len(value.strip()) > 0
-        # Handles int and enum based members
-        elif attribute == 'priority' \
-                or attribute == 'id' \
-                or attribute == 'added_by_user_id' \
-                or attribute == 'assigned_to_user_id' \
-                or attribute == 'status':
+        # Check if old value is of enum type.
+        if issubclass(type(old_value), Enum):
+            is_valid = helper.validate_enum(type(old_value), new_value)
+        # A builtin type validation that checks
+        else:
+            is_valid = isinstance(new_value, type(old_value))
 
-            try:
-                if helper.validate():
-                    converted_value = int(value)
-            except:
-                is_valid = False
+            # If the new and old values are string then it should not be empty
+            if isinstance(new_value, str):
+                is_valid = len(new_value.strip()) > 0
+
+
+
+        # # This is an old version of the above. Handles string members and check they are not empty after trimming from both sides
+        # if attribute == 'title' or attribute == 'description':
+        #     is_valid = isinstance(new_value, str) and len(new_value.strip()) > 0
+        # # Handles int and enum based members
+        # elif attribute == 'priority' \
+        #         or attribute == 'id' \
+        #         or attribute == 'added_by_user_id' \
+        #         or attribute == 'assigned_to_user_id' \
+        #         or attribute == 'status':
+        #
+        #     try:
+        #         if helper.validate_enum():
+        #             converted_value = int(new_value)
+        #     except:
+        #         is_valid = False
 
         return is_valid
