@@ -68,8 +68,10 @@ class Application(tk.Frame):
 
 # List tickets
 def list_tickets():
+    # Get ticket objects list
     tickets = tm.Ticket.get_tickets()
 
+    # Print the list in a friendly way
     for ticket in tickets:
         print('\n-----ID : ' + str(ticket.ID) + '----')
         ticket.print_ticket()
@@ -80,12 +82,19 @@ def list_tickets():
 def list_ticket():
     ticket_id = input('Enter the ticket ID : ')
     ticket = tm.Ticket.get_ticket(ticket_id)
-    print('\n-----ID : ' + str(ticket.ID) + '----')
-    ticket.print_ticket()
+
+    if ticket is not None:
+        print('\n-----ID : ' + str(ticket.ID) + '----')
+        ticket.print_ticket()
+    else:
+        print('Ticket ' + str(ticket_id) + ' not found!')
+
     print('------------\n')
 
 
-# Add ticket
+# Add ticket.
+# It takes user input and does a basic validation.
+# It sends call to business layer and passes on the call to database.
 def add_ticket():
     while True:
         new_ticket = tm.Ticket()
@@ -102,12 +111,14 @@ def add_ticket():
 
         break
 
-
+# Get a user friendly name for the class attribute name.
 def get_friendly_attribute_name(attrib):
     attrib = attrib.replace('_', ' ').title()
     return attrib
 
-
+# Get user friendly name for the attribute type.
+# 'str' >> 'text'
+# 'int' >> 'number'
 def get_friendly_type_name(value_type):
     if value_type.find('str') > -1:
         return 'text'
@@ -139,7 +150,7 @@ def update_ticket():
                                   + tm.Ticket.get_enum_options_for_ticket_attribute(
                     attribute) + ' or press ENTER for the next ticket field.\n')
 
-                if tm.Ticket.validate_ticket_user_input(attribute, new_value):
+                if tm.Ticket.validate_ticket_user_input(attribute, value, new_value):
                     this_ticket_dict[attribute] = new_value
 
         input('Press any key to continue updating...')

@@ -133,7 +133,7 @@ class Ticket:
 
         tickets = Ticket.get_ticket_from_db_reader(this_ticket_db)
 
-        if len(tickets) == 1:
+        if len(tickets) >= 1:
             return tickets[0]
         else:
             return None
@@ -143,10 +143,13 @@ class Ticket:
     def get_tickets():
         tickets_from_db = dl.get_tickets()
 
-        # todo Null check
-        # if ticket exists then return it otherwise return empty list
+        # Ticket exists then return it otherwise return empty list
 
-        tickets = Ticket.get_ticket_from_db_reader(tickets_from_db)
+        tickets = None
+
+        # Check the list of ticket got items
+        if len(tickets_from_db) >= 1:
+            tickets = Ticket.get_ticket_from_db_reader(tickets_from_db)
 
         return tickets
 
@@ -176,7 +179,7 @@ class Ticket:
     # Basic validation for str and int
     # todo - Advanced validation to check if input for enum based values belong to enum members
     @staticmethod
-    def validate_ticket_user_input(attribute, value):
+    def validate_ticket_user_input(attribute, value,   new_value):
         is_valid = False
 
         # Handles string members and check they are not empty after trimming from both sides
@@ -190,8 +193,8 @@ class Ticket:
                 or attribute == 'status':
 
             try:
-                converted_value = int(value)
-                is_valid = isinstance(converted_value, int)
+                if helper.validate():
+                    converted_value = int(value)
             except:
                 is_valid = False
 

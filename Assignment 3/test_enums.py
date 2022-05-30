@@ -27,4 +27,8 @@ this_ticket = TicketTest('Ticket 1', 0)
 attributes = helper.dict_from_class(this_ticket)
 
 for (key, value) in attributes.items():
-    print('Key - ' + key + ' | Value - ' + str(value) + ' | Type __name__ - ' + type(value).__name__ + ' | Type as string : ' + str(type(value)))
+    print('Key - ' + key + ' | Value - ' + str(value)
+          + ' | Type __name__ - ' + type(value).__name__
+          + ' | Type as string : ' + str(type(value))
+          + 'Is valid for 2 - ' + str(helper.validate_enum(type(value), 2))
+          )

@@ -1,3 +1,5 @@
+from enum import Enum
+
 # Prints an enum name and value pairs in a user-friendly way
 def print_enums(the_enum):
     for item in the_enum:
@@ -28,3 +30,23 @@ def dict_from_class(cls):
         for (key, value) in cls.__dict__.items()
         if not key.startswith('__') and not callable(key)
     )
+
+
+# Validate enum for a user input
+def validate_enum(the_enum, the_value):
+    try:
+        is_valid = issubclass(the_enum, Enum)
+        # Convert into int and on exception return false
+
+        the_value_int = int(the_value)
+
+        # Check if the value is in the list of values in the enum
+        is_valid = the_value_int in [item.value for item in the_enum]
+
+        return is_valid
+    except:
+        return False
+
+
+
+
