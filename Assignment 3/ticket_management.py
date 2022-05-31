@@ -191,7 +191,7 @@ class Ticket:
             is_valid = isinstance(new_value, type(old_value))
 
             # If the new and old values are string then it should not be empty
-            if isinstance(new_value, str):
+            if is_valid and isinstance(new_value, str):
                 is_valid = len(new_value.strip()) > 0
 
 

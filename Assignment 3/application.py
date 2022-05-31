@@ -16,7 +16,8 @@ class App:
                 print('\n-----ID : ' + str(ticket.ID) + '----')
                 ticket.print_ticket()
                 print('------------\n')
-                input('Press any key to continue...')
+
+            input('Press any key to continue...')
         else:
             input('No tickets found. Press any key to continue')
 
@@ -24,7 +25,11 @@ class App:
     @staticmethod
     def list_ticket():
         ticket_id = input('Enter the ticket ID : ')
-        ticket = tm.Ticket.get_ticket(ticket_id)
+        
+        ticket = None
+
+        if tm.Ticket.validate_ticket_user_input(0, ticket_id):
+            ticket = tm.Ticket.get_ticket(ticket_id)
 
         if ticket is not None:
             print('\n-----ID : ' + str(ticket.ID) + '----')
@@ -96,7 +101,6 @@ class App:
 
             print('New ticket has been added with ID ' + str(new_ticket.ID))
             input('Press any key to continue...')
-            break
 
     # Update ticket
     # This method firstly takes the input as ticket ID for the ticket to be updated
@@ -105,14 +109,14 @@ class App:
     # Each entry is validated for string and int
     @staticmethod
     def update_ticket():
-        ticket_id = input('Enter ticket ID to update')
+        ticket_id = input('Enter ticket ID of the ticket to update')
 
         if tm.Ticket.validate_ticket_user_input(0, ticket_id):
 
             this_ticket = tm.Ticket.get_ticket(ticket_id)
 
             if this_ticket is None:
-                input('Ticket no found! Press any key to continue...')
+                input('Ticket not found! Press any key to continue...')
             else:
                 print("\nCurrent values for ticket ID : " + str(ticket_id) + "\n")
                 this_ticket.print_ticket()
@@ -121,15 +125,16 @@ class App:
 
                 for (attribute, value) in this_ticket_dict.items():
                     if attribute != 'ID':
-                        new_value = input('Enter new value for ' + helper.get_friendly_attribute_name(attribute)
+                        new_value = input('\nEnter new value for ' + helper.get_friendly_attribute_name(attribute)
                                           + ' as "' + helper.get_friendly_type_name(str(type(value))) + '"'
                                           + tm.Ticket.get_enum_options_for_ticket_attribute(
                             attribute) + ' or press ENTER for the next ticket field.\n')
 
-                        if tm.Ticket.validate_ticket_user_input(value, new_value):
-                            this_ticket_dict[attribute] = new_value
-                        else:
-                            App.show_user_input_error(helper.get_friendly_attribute_name(attribute))
+                        if new_value != "":
+                            if tm.Ticket.validate_ticket_user_input(value, new_value):
+                                this_ticket_dict[attribute] = new_value
+                            else:
+                                App.show_user_input_error(helper.get_friendly_attribute_name(attribute))
 
                 input('Press any key to continue updating...')
 
@@ -142,17 +147,20 @@ class App:
                 new_ticket.print_ticket()
                 input('Press any key to continue...')
         else:
-            print('\nERROR : Wrong input\n')
+            input('\nERROR : Wrong input! Press any key to continue...\n')
 
     # Delete ticket CLI function
     @staticmethod
     def delete_ticket():
         ticket_id = input('Enter ticket ID to delete : ')
 
-        this_ticket = tm.Ticket.get_ticket(ticket_id)
+        this_ticket = None
+
+        if tm.Ticket.validate_ticket_user_input(0, ticket_id):
+            this_ticket = tm.Ticket.get_ticket(ticket_id)
 
         if this_ticket is None:
-            input('Ticket no found! Press any key to continue...')
+            input('Ticket not found! Press any key to continue...')
         else:
             tm.Ticket.delete(ticket_id)
             input('Ticket deleted. Press any key to continue...')
