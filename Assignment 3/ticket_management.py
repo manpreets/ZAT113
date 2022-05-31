@@ -183,6 +183,13 @@ class Ticket:
     def validate_ticket_user_input(old_value, new_value):
         is_valid = False
 
+        # If the old value is of type int for example 1 the new value from console can be '1'. Try converting it to int
+        if isinstance(old_value, int):
+            try:
+                new_value = int(new_value)
+            except:
+                pass
+
         # Check if old value is of enum type.
         if issubclass(type(old_value), Enum):
             is_valid = helper.validate_enum(type(old_value), new_value)
